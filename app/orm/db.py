@@ -1,4 +1,4 @@
-from orm.db_setup import metadata
+from app.orm.db_setup import metadata
 from sqlalchemy import (Table, Column, Integer, Text, JSON, String, Enum, ForeignKey, Time, DateTime)
 
 Clinic = Table(
@@ -7,7 +7,13 @@ Clinic = Table(
     Column('id', Integer, primary_key=True),
     Column('name', Text, nullable=True),
     Column('address', Text, nullable=True),
-    Column('list_doctor', JSON, nullable=True)
+)
+
+ListDoctorClinic = Table(
+    'list_doctor_clinic',
+    metadata,
+    Column('clinic_id', Integer, ForeignKey("clinic.id"), nullable=False),
+    Column('doctor_id', Integer, ForeignKey("doctor.id"), nullable=False)
 )
 
 Patient = Table(
@@ -38,7 +44,7 @@ OperationalHours = Table(
     Column('clinic_id', Integer, ForeignKey("clinic.id"), nullable=True),
     Column('day', String, nullable=True),
     Column('start_time', Time, nullable=True),
-    Column('ent_time', Time, nullable=True)
+    Column('end_time', Time, nullable=True)
 )
 
 Reservation = Table(
@@ -49,5 +55,7 @@ Reservation = Table(
     Column('doctor_id', Integer, ForeignKey("doctor.id"), nullable=True),
     Column('patient_id', Integer, ForeignKey("patient.id"), nullable=True),
     Column('operational_id', Integer, ForeignKey("operational_hours.id"), nullable=True),
-    Column('date_time_reservation', DateTime, nullable=True)
+    Column('date_time_reservation', DateTime, nullable=True),
+    Column('status', Enum('scheduled','ongoing', 'canceled', 'done', name='status'), nullable=True),
+    Column('queue_number', Integer, nullable=True)
 )

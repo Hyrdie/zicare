@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  db:
+    # container_name: db
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=local
+      - POSTGRES_PASSWORD=local123
+      - POSTGRES_DB=zicare
+      - POSTGRES_TIMEZONE=Asia/Jakarta
+    ports:
+      - '55432:5432'
+  # FastAPI application service
+  app:
+    build: .
+    container_name: zicare_service
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    env_file:
+      - app/.env
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

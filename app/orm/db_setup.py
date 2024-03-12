@@ -2,7 +2,7 @@ import os
 from typing import Generator
 
 from databases import Database
-from settings import settings
+from app.settings import settings
 from sqlalchemy import MetaData, create_engine
 from sqlalchemy.orm import sessionmaker
 
