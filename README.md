@@ -1,5 +1,19 @@
 # Reservation Zicare
-For the Zicare dev test
+For the Zicare Backend test
+
+## My assumption about this test
+My assumption is simple, create an app (Backend services) to reserve or booking an appointment with doctor in some clinic. Of course after you booked the doctor, you get some queue number so the patient can just come and wait in the clinic without creating an appointment on site (the clinic).
+I create 6 tables to achieve this feature, below attached the ERD
+![zicare_erd](https://github.com/Hyrdie/zicare/assets/33867561/03409042-7fe0-4e57-a90f-11a82f9bb66e)
+3 main entities:
+1. Clinic
+2. Doctor
+3. Patient
+
+## Explanation of the project structure
+Im using mvc structure (Model View Controller) for this project, inspired when im using java in my 1st company as a backend dev
+i think it's easy to read the structure and can be traced easily if there some error
+
 Build with python 3.8 + FastAPI
 
 Docker
@@ -33,6 +47,7 @@ pip3 install -r requirements.txt
 after that, you must create .env file with the value from sample.env
 .env is located inside app folder 
 app/.env
+create folder named "logs" before you run the app
 and then you can run it by:
 ```
 make run
